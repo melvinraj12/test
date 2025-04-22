@@ -11,19 +11,8 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsInt,
-  Min,
-  Max,
-  IsOptional,
-  IsDate,
-  IsString,
-  MaxLength,
-} from "class-validator";
+import { IsInt, Min, Max, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { IsJSONValue } from "../../validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { JsonValue } from "type-fest";
 
 @ObjectType()
 class User {
@@ -32,7 +21,7 @@ class User {
     type: Number,
   })
   @IsInt()
-  @Min(-999999999)
+  @Min(18)
   @Max(999999999)
   @IsOptional()
   @Field(() => Number, {
@@ -41,12 +30,15 @@ class User {
   age!: number | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
   })
   @IsDate()
   @Type(() => Date)
-  @Field(() => Date)
-  createdAt!: Date;
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  createdAt!: Date | null;
 
   @ApiProperty({
     required: false,
@@ -60,18 +52,6 @@ class User {
   email!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(256)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  firstName!: string | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -81,30 +61,14 @@ class User {
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(256)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  lastName!: string | null;
-
-  @ApiProperty({
-    required: true,
-  })
-  @IsJSONValue()
-  @Field(() => GraphQLJSON)
-  roles!: JsonValue;
-
-  @ApiProperty({
-    required: true,
   })
   @IsDate()
   @Type(() => Date)
-  @Field(() => Date)
-  updatedAt!: Date;
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  updatedAt!: Date | null;
 
   @ApiProperty({
     required: false,

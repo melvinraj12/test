@@ -9,14 +9,11 @@ generator client {
 
 model User {
   age       Int?
-  createdAt DateTime @default(now())
-  email     String?  @unique
-  firstName String?
-  id        String   @id @default(cuid())
-  lastName  String?
+  createdAt DateTime? @default(now())
+  email     String?   @unique
+  id        String    @id @default(cuid())
   password  String
-  roles     Json
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
   userIdNo  Int?
-  username  String   @unique
+  username  String    @unique
 }

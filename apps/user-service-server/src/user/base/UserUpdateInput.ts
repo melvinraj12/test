@@ -11,17 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsInt,
-  Min,
-  Max,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from "class-validator";
-import { IsJSONValue } from "../../validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
+import { IsInt, Min, Max, IsOptional, IsString } from "class-validator";
 
 @InputType()
 class UserUpdateInput {
@@ -30,7 +20,7 @@ class UserUpdateInput {
     type: Number,
   })
   @IsInt()
-  @Min(-999999999)
+  @Min(18)
   @Max(999999999)
   @IsOptional()
   @Field(() => Number, {
@@ -54,45 +44,11 @@ class UserUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  firstName?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(256)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  lastName?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   password?: string;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsJSONValue()
-  @IsOptional()
-  @Field(() => GraphQLJSON, {
-    nullable: true,
-  })
-  roles?: InputJsonValue;
 
   @ApiProperty({
     required: false,
